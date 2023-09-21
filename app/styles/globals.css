@@ -1,0 +1,26 @@
+@import "https://fonts.googleapis.com/css2?family=Martian+Mono:wght@600&display=swap";
+
+* {
+    font-family: "Martian Mono", monospace;
+}
+
+:root {
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+:focus {
+    outline: none;
+}
+
+body {
+    background-color: #363636;
+    overflow-x: hidden;
+}
+
+h1 {
+    color: white;
+}

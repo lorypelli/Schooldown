@@ -1,0 +1,13 @@
+#navbar {
+    border: 5px solid;
+    border-radius: 10px;
+    border-color: white;
+    height: 55px;
+}
+
+#navtext {
+    display: block;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
