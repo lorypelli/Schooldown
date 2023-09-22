@@ -1,3 +1,7 @@
+export interface Region {
+    inizioLezioni: number,
+    fineLezioni: number
+}
 declare global {
     interface HTMLElement {
         value: string | number
