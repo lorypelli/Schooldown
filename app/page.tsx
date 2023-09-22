@@ -5,11 +5,10 @@ export default async function Home() {
     const nomeRegione = Object.keys(res.data)
     let indexRegione = 1
     let randomIndex = Math.floor(Math.random() * (21 - 1 + 1) + 1)
-    let randomRegion = ""
-    nomeRegione.forEach(() => {
+    nomeRegione.forEach(region => {
         indexRegione++
         if (indexRegione == randomIndex) {
-            redirect(`/${randomRegion}`)
+            redirect(`/${region}`)
         }
     })
 }
