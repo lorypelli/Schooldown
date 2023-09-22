@@ -6,7 +6,7 @@ export default async function Home() {
     let indexRegione = 1
     let randomIndex = Math.floor(Math.random() * (21 - 1 + 1) + 1)
     let randomRegion = ""
-    nomeRegione.forEach(_ => {
+    nomeRegione.forEach(() => {
         indexRegione++
         if (indexRegione == randomIndex) {
             redirect(`/${randomRegion}`)
