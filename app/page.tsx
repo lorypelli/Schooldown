@@ -1,7 +1,5 @@
-import React from "react"
 import axios from "axios"
 import "./styles/globals.css"
-import Navbar from "./components/Navbar"
 import { redirect } from "next/navigation"
 export default async function Home() {
     const res = await axios.get(`https://schooldown.vercel.app/api/getData/`)
@@ -16,10 +14,4 @@ export default async function Home() {
             redirect(`/${region}`)
         }
     })
-    return (
-        <>
-            <Navbar />
-            <h1>{randomRegion.replaceAll("%20", " ")}</h1>
-        </>
-    )
 }
