@@ -1,4 +1,5 @@
 import axios from "axios"
+import "./styles/globals.css"
 import { redirect } from "next/navigation"
 export default async function Home() {
     const res = await axios.get(`https://schooldown.vercel.app/api/getData/`)
