@@ -11,3 +11,9 @@
     color: white;
     text-align: center;
 }
+@media only screen and (max-width: 495px) {
+    #navtext {
+        font-size: 15px;
+        margin-top: 20px;
+    }
+}
