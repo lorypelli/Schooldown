@@ -57,7 +57,7 @@ export default async function Home({ params }: { params: { nomeRegione: string }
             <Navbar />
             <h1>{region.replaceAll("-", " ")}</h1>
             <h1>{countdownInizio < 0 ? "La scuola finisce tra:" : "La scuola inizia tra:"}</h1>
-            <h1>{`${mesi} mesi, ${settimane} settimane, ${giorni} giorni, ${ore} ore ${minuti} minuti ${secondi} secondi`}</h1>
+            <h1>{`${mesi} mesi, ${settimane} settimane, ${giorni} giorni, ${ore} ore, ${minuti} minuti, ${secondi} secondi`}</h1>
         </>
     )
 }
