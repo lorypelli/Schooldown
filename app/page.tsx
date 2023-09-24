@@ -9,7 +9,7 @@ export default async function Home() {
     nomeRegione.forEach(region => {
         indexRegione++
         if (indexRegione == randomIndex) {
-            redirect(`/${region}`)
+            redirect(`/${region.replaceAll(" ", "-")}`)
         }
     })
 }
