@@ -6,7 +6,7 @@ export default async (request: import('@vercel/node').VercelRequest, response: i
         return response.status(405).send('Method not allowed');
     }
     else if (request.method === 'GET') {
-        const res = await axios.get('https://schooldown.vercel.app/api/getData/');
+        const res = await axios.get('https://schooldown.vercel.app/api/getData');
         if (res.data[request.query.nomeRegione as string]) {
             return response.send(res.data[request.query.nomeRegione as string]);
         }
