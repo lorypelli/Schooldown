@@ -8,6 +8,9 @@ export default async (request: import('@vercel/node').VercelRequest, response: i
     }
     else if (request.method === 'GET') {
         const res = await axios.get(`https://www.fanpage.it/attualita/quando-inizia-la-scuola-regione-per-regione-le-date-e-il-calendario-${new Date().getFullYear()}-${parseInt(new Date().getFullYear().toString().slice(2)) + 1}/`);
+        if (res.status == 404) {
+            return response.status(404).send('Not Found');
+        }
         const $ = load(res.data);
         const date = $('div div div div ul li');
         const arr: string[] = [];

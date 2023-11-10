@@ -8,7 +8,11 @@ let res: Region | Response = await fetch(
 	`https://schooldown.vercel.app/api/${nomeRegione!.replaceAll('-', ' ')}`,
 );
 let isValidRegion = res.status != 400 ? true : false;
-let region = isValidRegion ? nomeRegione : await res.text();
+let region = isValidRegion
+	? nomeRegione
+	: (await res.text()) != 'Bad Request'
+	? 'Invalid'
+	: await res.text();
 if (!isValidRegion) {
 	return Astro.redirect(`/${region!.replaceAll(' ', '-')}`);
 } else {
@@ -62,6 +66,7 @@ if (countdownInizio < 0) {
 	<nav id="navbar">
 		<h1 id="navtext">Schooldown - School Countdown</h1>
 	</nav>
+	{region != 'Invalid' ? (
 	<h1>{region!.replaceAll('-', ' ')}</h1>
 	<h1>
 		{countdownInizio < 0 ? 'La scuola finisce tra:' : 'La scuola inizia tra:'}
@@ -70,7 +75,7 @@ if (countdownInizio < 0) {
 		{
 			`${mesi} mesi, ${settimane} settimane, ${giorni} giorni, ${ore} ore, ${minuti} minuti, ${secondi} secondi`
 		}
-	</h1>
+	</h1>) : <h1>Something went wrong...</h1>}
 	<script>
 		const countdown = document.getElementById('countdown');
 		let mesi = parseInt(countdown!.innerText.split(',')[0]);
