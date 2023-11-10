@@ -5,7 +5,7 @@ import '../styles/Navbar.css';
 import type { Region } from '../../addons';
 const { nomeRegione } = Astro.params;
 let res: Region | Response = await fetch(
-	`https://schooldown-astro.vercel.app/api/${nomeRegione!.replaceAll('-', ' ')}`,
+	`https://schooldown.vercel.app/api/${nomeRegione!.replaceAll('-', ' ')}`,
 );
 let isValidRegion = res.status != 400 ? true : false;
 let region = isValidRegion ? nomeRegione : await res.text();
