@@ -102,8 +102,6 @@ if (countdownInizio < 0) {
 			} else if (mesi > 0) {
 				settimane = 3;
 				mesi -= 1;
-			} else {
-				window.location.reload();
 			}
 			countdown!.innerHTML = `${mesi} mesi, ${settimane} settimane, ${giorni} giorni, ${ore} ore, ${minuti} minuti, ${secondi} secondi`;
 		}, 1000);
