@@ -8,7 +8,8 @@ export default async (request: import('@vercel/node').VercelRequest, response: i
     else if (request.method === 'GET') {
         const res = await axios.get('https://schooldown.vercel.app/api/getData');
         if (res.status == 404) {
-            return response.status(400).send('Bad Request');
+            response.setHeader('Content-Type', 'text/plain');
+            return response.status(404).send('Not Found');
         }
         if (res.data[request.query.nomeRegione as string]) {
             return response.send(res.data[request.query.nomeRegione as string]);

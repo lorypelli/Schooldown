@@ -8,11 +8,14 @@ let res: Region | Response = await fetch(
 	`https://schooldown.vercel.app/api/${nomeRegione!.replaceAll('-', ' ')}`,
 );
 let isValidRegion = res.status != 400 ? true : false;
-let region = isValidRegion
-	? nomeRegione
-	: (await res.text()) == 'Bad Request'
-	? 'Invalid'
+let region = ''
+if (res.status == 404) {
+	region = 'Invalid';
+} else {
+	region = isValidRegion
+	? nomeRegione!
 	: await res.text();
+}
 if (!isValidRegion) {
 	return Astro.redirect(`/${region!.replaceAll(' ', '-')}`);
 } else {
