@@ -1,5 +1,5 @@
 {
-  "name": "Schooldown",
+  "name": "schooldown",
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
