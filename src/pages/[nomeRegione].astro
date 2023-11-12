@@ -10,7 +10,7 @@ let res: Region | Response = await fetch(
 let isValidRegion = res.status != 400 ? true : false;
 let region = isValidRegion
 	? nomeRegione
-	: (await res.text()) != 'Bad Request'
+	: (await res.text()) == 'Bad Request'
 	? 'Invalid'
 	: await res.text();
 if (!isValidRegion) {
