@@ -16,7 +16,7 @@ export default async (request: import('@vercel/node').VercelRequest, response: i
         }
         else {
             const nomeRegione = Object.keys(res.data);
-            const randomIndex = Math.floor(Math.random() * (21 - 1 + 1) + 1);
+            const randomIndex = Math.floor(Math.random() * 21);
             response.setHeader('Content-Type', 'text/plain');
             response.status(400).send(nomeRegione[randomIndex]);
         }
