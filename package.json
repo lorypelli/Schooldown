@@ -10,11 +10,8 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
-    "@astrojs/vercel": "^5.2.0",
-    "@vercel/node": "^3.0.9",
     "astro": "^3.5.0",
     "axios": "^1.6.1",
-    "cheerio": "^1.0.0-rc.12",
     "typescript": "^5.2.2"
   },
   "devDependencies": {

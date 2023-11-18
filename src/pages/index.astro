@@ -1,7 +1,5 @@
 ---
 import axios from 'axios';
-const res = await axios.get(`https://schooldown.vercel.app/api/getData`);
-const nomeRegione = Object.keys(res.data);
-let randomIndex = Math.floor(Math.random() * (21 - 1 + 1) + 1);
-return Astro.redirect(`/${nomeRegione[randomIndex].replaceAll(' ', '-')}`);
+const res = await axios.get(`http://localhost:8080/getData`);
+return Astro.redirect(`/${Object.keys(res.data)[Math.floor(Math.random() * (21 - 1 + 1) + 1)].replaceAll(' ', '-')}`);
 ---
