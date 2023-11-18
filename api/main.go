@@ -103,7 +103,7 @@ func main() {
 					nomeRegione = append(nomeRegione, k)
 				}
 				res.Header("Content-Type", "text/plain")
-				res.String(200, nomeRegione[randomIndex])
+				res.String(400, nomeRegione[randomIndex])
 
 			}
 		}
