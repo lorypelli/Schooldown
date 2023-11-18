@@ -22,10 +22,10 @@ if (!isValidRegion) {
 	res = await res.json();
 }
 const countdownInizio = Math.floor(
-	(res as Region).inizioLezioni - Date.now() / 1000,
+	(res as Region).InizioLezioni - Date.now() / 1000,
 );
 const countdownFine = Math.floor(
-	(res as Region).fineLezioni - Date.now() / 1000,
+	(res as Region).FineLezioni - Date.now() / 1000,
 );
 let mesi = 0;
 let settimane = 0;

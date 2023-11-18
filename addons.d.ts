@@ -1,4 +1,4 @@
 export interface Region {
-    inizioLezioni: number,
-    fineLezioni: number
+    InizioLezioni: number,
+    FineLezioni: number
 }
