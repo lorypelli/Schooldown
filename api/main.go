@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"io"
 	"math/rand"
 	"net/http"
@@ -14,24 +14,23 @@ import (
 )
 
 func main() {
-	req := gin.Default()
-	req.NoRoute(func(res *gin.Context) {
-		res.Redirect(307, "http://localhost:4321/")
+	app := fiber.New()
+	app.Get("/", func(res *fiber.Ctx) error {
+		return res.Redirect("http://localhost:4321/")
 	})
-	req.GET("/getData", func(res *gin.Context) {
-		res.Header("Content-Type", "application/json; charset=UFT-8")
+	app.Get("/getData", func(res *fiber.Ctx) error {
 		response, err := http.Get(fmt.Sprintf("https://www.fanpage.it/attualita/quando-inizia-la-scuola-regione-per-regione-le-date-e-il-calendario-%d-%d/", time.Now().Year(), (time.Now().Year()%100)+1))
 		if err != nil {
-			res.Header("Content-Type", "text/plain")
-			res.String(500, err.Error())
+			res.Status(500)
+			return res.SendString(err.Error())
 		} else if response.StatusCode == http.StatusNotFound {
-			res.Header("Content-Type", "text/plain")
-			res.String(404, "Not Found")
+			res.Status(404)
+			return res.SendString("Not Found")
 		} else {
 			doc, err := goquery.NewDocumentFromReader(response.Body)
 			if err != nil {
-				res.Header("Content-Type", "text/plain")
-				res.String(500, err.Error())
+				res.Status(500)
+				return res.SendString(err.Error())
 			} else {
 				obj := make(map[string]struct {
 					InizioLezioni int64
@@ -69,20 +68,20 @@ func main() {
 						FineLezioni:   time.Date(time.Now().Year()+1, time.June, fineLezioniInt, 0, 0, 0, 0, time.UTC).Unix(),
 					}
 				})
-				res.JSON(200, obj)
+				res.Status(200)
+				return res.JSON(obj)
 			}
 		}
 	})
-	req.GET("/:nomeRegione", func(res *gin.Context) {
-		res.Header("Content-Type", "application/json; charset=UFT-8")
-		nomeRegione := res.Param("nomeRegione")
+	app.Get("/:nomeRegione", func(res *fiber.Ctx) error {
+		nomeRegione := res.Params("nomeRegione")
 		response, err := http.Get("http://localhost:8080/getData")
 		if err != nil {
-			res.Header("Content-Type", "text/plain")
-			res.String(500, err.Error())
+			res.Status(500)
+			return res.SendString(err.Error())
 		} else if response.StatusCode == http.StatusNotFound {
-			res.Header("Content-Type", "text/plain")
-			res.String(404, "Not Found")
+			res.Status(404)
+			return res.SendString("Not Found")
 		}
 		body, err := io.ReadAll(response.Body)
 		data := make(map[string]struct {
@@ -90,23 +89,24 @@ func main() {
 			FineLezioni   int64
 		})
 		if err != nil {
-			res.Header("Content-Type", "text/plain")
-			res.String(500, err.Error())
+			res.Status(500)
+			return res.SendString(err.Error())
 		} else {
 			json.Unmarshal(body, &data)
 			if data[nomeRegione].InizioLezioni > 0 {
-				res.JSON(200, data[nomeRegione])
+				res.Status(200)
+				return res.JSON(data[nomeRegione])
 			} else {
 				nomeRegione := make([]string, 0, len(data))
 				randomIndex := rand.Intn(21)
 				for k := range data {
 					nomeRegione = append(nomeRegione, k)
 				}
-				res.Header("Content-Type", "text/plain")
-				res.String(400, nomeRegione[randomIndex])
+				res.Status(400)
+				return res.SendString(nomeRegione[randomIndex])
 
 			}
 		}
 	})
-	req.Run()
+	app.Listen(":8080")
 }
