@@ -21,16 +21,13 @@ func main() {
 	app.Get("/getData", func(res *fiber.Ctx) error {
 		response, err := http.Get(fmt.Sprintf("https://www.fanpage.it/attualita/quando-inizia-la-scuola-regione-per-regione-le-date-e-il-calendario-%d-%d/", time.Now().Year(), (time.Now().Year()%100)+1))
 		if err != nil {
-			res.Status(500)
-			return res.SendString(err.Error())
+			return res.Status(500).SendString(err.Error())
 		} else if response.StatusCode == http.StatusNotFound {
-			res.Status(404)
-			return res.SendString("Not Found")
+			return res.Status(404).SendString("Not Found")
 		} else {
 			doc, err := goquery.NewDocumentFromReader(response.Body)
 			if err != nil {
-				res.Status(500)
-				return res.SendString(err.Error())
+				return res.Status(500).SendString(err.Error())
 			} else {
 				obj := make(map[string]struct {
 					InizioLezioni int64
@@ -68,8 +65,7 @@ func main() {
 						FineLezioni:   time.Date(time.Now().Year()+1, time.June, fineLezioniInt, 0, 0, 0, 0, time.UTC).Unix(),
 					}
 				})
-				res.Status(200)
-				return res.JSON(obj)
+				return res.Status(200).JSON(obj)
 			}
 		}
 	})
@@ -77,11 +73,9 @@ func main() {
 		nomeRegione := res.Params("nomeRegione")
 		response, err := http.Get("http://localhost:8080/getData")
 		if err != nil {
-			res.Status(500)
-			return res.SendString(err.Error())
+			return res.Status(500).SendString(err.Error())
 		} else if response.StatusCode == http.StatusNotFound {
-			res.Status(404)
-			return res.SendString("Not Found")
+			return res.Status(404).SendString("Not Found")
 		}
 		body, err := io.ReadAll(response.Body)
 		data := make(map[string]struct {
@@ -89,21 +83,18 @@ func main() {
 			FineLezioni   int64
 		})
 		if err != nil {
-			res.Status(500)
-			return res.SendString(err.Error())
+			return res.Status(500).SendString(err.Error())
 		} else {
 			json.Unmarshal(body, &data)
 			if data[nomeRegione].InizioLezioni > 0 {
-				res.Status(200)
-				return res.JSON(data[nomeRegione])
+				return res.Status(200).JSON(data[nomeRegione])
 			} else {
 				nomeRegione := make([]string, 0, len(data))
 				randomIndex := rand.Intn(21)
 				for k := range data {
 					nomeRegione = append(nomeRegione, k)
 				}
-				res.Status(400)
-				return res.SendString(nomeRegione[randomIndex])
+				return res.Status(400).SendString(nomeRegione[randomIndex])
 
 			}
 		}
