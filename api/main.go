@@ -95,7 +95,6 @@ func main() {
 					nomeRegione = append(nomeRegione, k)
 				}
 				return res.Status(400).SendString(nomeRegione[randomIndex])
-
 			}
 		}
 	})
