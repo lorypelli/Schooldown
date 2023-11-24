@@ -40,6 +40,9 @@ func main() {
 			return res.Redirect(fmt.Sprintf("/%s", nomeRegione[randomIndex]))
 		}
 	})
+	app.Get("/favicon.ico", func(res *fiber.Ctx) error {
+		return res.Status(200).SendFile("favicon.ico")
+	})
 	app.Get("/:nomeRegione", func(res *fiber.Ctx) error {
 		nomeRegione, err := url.QueryUnescape(res.Params("nomeRegione"))
 		if err != nil {
