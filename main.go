@@ -10,7 +10,6 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-	"text/template"
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
@@ -120,7 +119,6 @@ func main() {
 			restoMinuti = restoOre % (6.0 * 10)
 			secondi = restoMinuti
 		}
-		template.New("index.html").ParseFiles("index.html")
 		return res.Render("index.html", struct {
 			Region                                                         string
 			CountdownInizio, Mesi, Settimane, Giorni, Ore, Minuti, Secondi int
